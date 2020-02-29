@@ -3,7 +3,7 @@ using namespace std;
 vector<vector<pair<int,int> > > adj;
 
 bool marked[100005];
-long long int prim(int u){
+long long int prims(int u){
     
     long long int minimumCost = 0;
     priority_queue<pair<int,int> >pq;
@@ -38,6 +38,6 @@ int main(){
         adj[v].push_back(make_pair(w,u));
     }
     int minimumCost = 0;
-    minimumCost = prim(1);
+    minimumCost = prims(1);
     cout<<minimumCost<<endl;
 }
