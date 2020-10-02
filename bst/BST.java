@@ -1,10 +1,30 @@
 package io.abhishek.designpattern.bst;
 
 /**
- * class responsible for all BST operation
+ * BST class having some generic Key
+ * @param <Key>
+ * @author abhivenkiabhi(Abhishek Kumar)
  */
-public class BST {
+public class BST<Key extends Comparable<Key> > {
   private Node root;
+  /**
+   * Node class which encapsulates properties of Node
+   */
+  class Node {
+    private Key key;
+    private Node left, right;
+
+    public Node(Key key) {
+      this.key = key;
+      this.left = this.right = null;
+    }
+
+    public Node(Key key, Node left, Node right) {
+      this.key = key;
+      this.left = left;
+      this.right = right;
+    }
+  }
   public BST() {
     root = null;
   }
@@ -12,7 +32,7 @@ public class BST {
    * insert a Node in BST
    * @param key
    */
-  public void insert(int key) {
+  public void insert(Key key) {
     root = insertRec(root, key);
   }
 
@@ -22,14 +42,15 @@ public class BST {
    * @param key
    * @return root Node
    */
-  private Node insertRec(Node root, int key) {
-    if (root == null || root.val == key) {
+  private Node insertRec(Node root, Key key) {
+    if (root == null || key.compareTo(root.key) == 0) {
       root = new Node(key);
       return root;
     }
-    if (root.val > key) {
+    int cmp = key.compareTo(root.key);
+    if (cmp < 0) {
       root.left = insertRec(root.left, key);
-    } else if(root.val < key) {
+    } else if(cmp > 0) {
       root.right = insertRec(root.right, key);
     }
     return root;
@@ -37,10 +58,10 @@ public class BST {
 
   /**
    *
-   * @param key
+   * @param key the key
    * @return node if found otherwise null
    */
-  public Node search(int key) {
+  public Node search(Key key) {
     return searchRec(root, key);
   }
 
@@ -50,10 +71,11 @@ public class BST {
    * @param key
    * @return Node if found
    */
-  private Node searchRec(Node root, int key) {
-    if (root == null || root.val == key)
+  private Node searchRec(Node root, Key key) {
+    if (root == null || key.compareTo(root.key) == 0)
       return root;
-    if (root.val > key) {
+    int cmp = key.compareTo(root.key);
+    if (cmp < 0) {
       return searchRec(root.left, key);
     } else {
       return searchRec(root.right, key);
@@ -62,9 +84,9 @@ public class BST {
 
   /**
    * delete a node with given key
-   * @param key
+   * @param key the key
    */
-  public void delete(int key) {
+  public void delete(Key key) {
     root = deleteRec(root, key);
   }
 
@@ -74,12 +96,13 @@ public class BST {
    * @param key
    * @return
    */
-  Node deleteRec(Node root, int key) {
+  Node deleteRec(Node root, Key key) {
     if (root == null)
       return null;
-    if (root.val > key) {
+    int cmp = key.compareTo(root.key);
+    if (cmp < 0) {
       root.left = deleteRec(root.left, key);
-    } else if(root.val < key) {
+    } else if(cmp > 0) {
       root.right = deleteRec(root.right, key);
     } else {
       if (root.left == null)
@@ -98,7 +121,7 @@ public class BST {
         } else {
           succPar.right = succ.right;
         }
-        root.val = succ.val;
+        root.key = succ.key;
       }
     }
     return root;
@@ -119,7 +142,7 @@ public class BST {
     if (root == null)
       return;
     inorderRec(root.left);
-    System.out.print(root.val + " ");
+    System.out.print(root.key.toString() + " ");
     inorderRec(root.right);
   }
 
@@ -128,7 +151,7 @@ public class BST {
    * @param args
    */
   public static void main(String[] args) {
-    BST  tree = new BST();
+    BST<Integer> tree = new BST();
     tree.insert(50);
     tree.insert(30);
     tree.insert(20);
@@ -138,7 +161,7 @@ public class BST {
     tree.insert(80);
     System.out.println("Inorder traversal of the given tree");
     tree.inorder();
-    Node node = tree.search(30);
+    BST.Node node = tree.search(30);
     if(node == null) {
       System.out.println("node not found");
     } else {
@@ -156,17 +179,4 @@ public class BST {
   }
 
 }
-class Node {
-  int val;
-  Node left;
-  Node right;
-  public Node(int val) {
-    this.val = val;
-    this.left = this.right = null;
-  }
-  public Node(int val, Node left, Node right) {
-    this.val = val;
-    this.left = left;
-    this.right = right;
-  }
-}
+
