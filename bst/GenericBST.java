@@ -1,4 +1,4 @@
-package io.abhishek.designpattern.bst;
+package bst;
 
 /**
  * GenericBST API's implementation
@@ -47,23 +47,23 @@ public class GenericBST<Key extends Comparable<Key>, Value> {
 
   /**
    * helper recursive function to insert key-value Pair
-   * @param root
+   * @param node
    * @param key
    * @param value
    * @return root Node
    */
-  private Node put(Node root, Key key, Value value) {
-    if (root == null || root.key.compareTo(key) == 0) {
-      root = new Node(key, value);
-      return root;
+  private Node put(Node node, Key key, Value value) {
+    if (node == null || node.key.compareTo(key) == 0) {
+      node = new Node(key, value);
+      return node;
     }
-    int cmp = key.compareTo(root.key);
+    int cmp = key.compareTo(node.key);
     if (cmp < 0) {
-      root.left = put(root.left, key, value);
+      node.left = put(node.left, key, value);
     } else {
-      root.right = put(root.right, key, value);
+      node.right = put(node.right, key, value);
     }
-    return root;
+    return node;
   }
 
   /**
@@ -80,20 +80,20 @@ public class GenericBST<Key extends Comparable<Key>, Value> {
 
   /**
    * helper function to get the Value for a Key
-   * @param root
+   * @param node
    * @param key
    * @return value associated with the key if found else null
    */
-  private Value get(Node root, Key key) {
-    if (root == null)
+  private Value get(Node node, Key key) {
+    if (node == null)
       return null;
-    int cmp = key.compareTo(root.key);
+    int cmp = key.compareTo(node.key);
     if (cmp == 0)
-      return root.value;
+      return node.value;
     else if (cmp < 0)
-      return get(root.left, key);
+      return get(node.left, key);
     else
-      return get(root.right, key);
+      return get(node.right, key);
   }
 
   /**
@@ -106,40 +106,40 @@ public class GenericBST<Key extends Comparable<Key>, Value> {
 
   /**
    * helper function to remove Node(key-value) from BST
-   * @param root
+   * @param node
    * @param key
    * @return the root
    */
-  private Node remove(Node root, Key key) {
-    if (root == null)
+  private Node remove(Node node, Key key) {
+    if (node == null)
       return null;
-    int cmp = key.compareTo(root.key);
+    int cmp = key.compareTo(node.key);
     if (cmp < 0) {
-      root.left = remove(root.left, key);
+      node.left = remove(node.left, key);
     } else if (cmp > 0) {
-      root.right = remove(root.right, key);
+      node.right = remove(node.right, key);
     } else {
-      if (root.left == null) {
-        return root.right;
-      } else if (root.right == null) {
-        return root.left;
+      if (node.left == null) {
+        return node.right;
+      } else if (node.right == null) {
+        return node.left;
       } else {
-        Node successorParent = root;
-        Node successor = root.right;
+        Node successorParent = node;
+        Node successor = node.right;
         while(successor.left != null) {
           successorParent = successor;
           successor = successor.left;
         }
-        if (successorParent != root) {
+        if (successorParent != node) {
           successorParent.left = successor.right;
         } else {
           successorParent.right = successor.right;
         }
-        root.key = successor.key;
-        root.value = successor.value;
+        node.key = successor.key;
+        node.value = successor.value;
       }
     }
-    return root;
+    return node;
   }
 
   /**
@@ -151,14 +151,14 @@ public class GenericBST<Key extends Comparable<Key>, Value> {
 
   /**
    * helper function for traversal
-   * @param root
+   * @param node
    */
-  private void inorder(Node root) {
-    if(root == null)
+  private void inorder(Node node) {
+    if(node == null)
       return;
-    inorder(root.left);
-    System.out.println(root.key.toString() + " " + root.value.toString());
-    inorder(root.right);
+    inorder(node.left);
+    System.out.println(node.key.toString() + " " + node.value.toString());
+    inorder(node.right);
   }
 
   public static void main(String[] args) {

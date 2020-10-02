@@ -1,4 +1,4 @@
-package io.abhishek.designpattern.bst;
+package bst;
 
 /**
  * BST class having some generic Key
@@ -38,22 +38,22 @@ public class BST<Key extends Comparable<Key> > {
 
   /**
    * helper function for inserting a node in BST.
-   * @param root
+   * @param node
    * @param key
    * @return root Node
    */
-  private Node insertRec(Node root, Key key) {
-    if (root == null || key.compareTo(root.key) == 0) {
-      root = new Node(key);
-      return root;
+  private Node insertRec(Node node, Key key) {
+    if (node == null || key.compareTo(node.key) == 0) {
+      node = new Node(key);
+      return node;
     }
-    int cmp = key.compareTo(root.key);
+    int cmp = key.compareTo(node.key);
     if (cmp < 0) {
-      root.left = insertRec(root.left, key);
+      node.left = insertRec(node.left, key);
     } else if(cmp > 0) {
-      root.right = insertRec(root.right, key);
+      node.right = insertRec(node.right, key);
     }
-    return root;
+    return node;
   }
 
   /**
@@ -67,18 +67,18 @@ public class BST<Key extends Comparable<Key> > {
 
   /**
    * helper function to search Node in BST
-   * @param root
+   * @param node
    * @param key
    * @return Node if found
    */
-  private Node searchRec(Node root, Key key) {
-    if (root == null || key.compareTo(root.key) == 0)
-      return root;
-    int cmp = key.compareTo(root.key);
+  private Node searchRec(Node node, Key key) {
+    if (node == null || key.compareTo(node.key) == 0)
+      return node;
+    int cmp = key.compareTo(node.key);
     if (cmp < 0) {
-      return searchRec(root.left, key);
+      return searchRec(node.left, key);
     } else {
-      return searchRec(root.right, key);
+      return searchRec(node.right, key);
     }
   }
 
@@ -92,39 +92,39 @@ public class BST<Key extends Comparable<Key> > {
 
   /**
    * helper function for deleting a Node with given key
-   * @param root
+   * @param node
    * @param key
    * @return
    */
-  Node deleteRec(Node root, Key key) {
-    if (root == null)
+  Node deleteRec(Node node, Key key) {
+    if (node == null)
       return null;
-    int cmp = key.compareTo(root.key);
+    int cmp = key.compareTo(node.key);
     if (cmp < 0) {
-      root.left = deleteRec(root.left, key);
+      node.left = deleteRec(node.left, key);
     } else if(cmp > 0) {
-      root.right = deleteRec(root.right, key);
+      node.right = deleteRec(node.right, key);
     } else {
-      if (root.left == null)
-        return root.right;
-      else if(root.right == null)
-        return root.left;
+      if (node.left == null)
+        return node.right;
+      else if(node.right == null)
+        return node.left;
       else {
-        Node succPar = root;
-        Node succ = root.right;
+        Node succPar = node;
+        Node succ = node.right;
         while(succ.left != null) {
           succPar = succ;
           succ = succ.left;
         }
-        if(succPar != root) {
+        if(succPar != node) {
           succPar.left = succ.right;
         } else {
           succPar.right = succ.right;
         }
-        root.key = succ.key;
+        node.key = succ.key;
       }
     }
-    return root;
+    return node;
   }
 
   /**
@@ -136,14 +136,14 @@ public class BST<Key extends Comparable<Key> > {
 
   /**
    * helper function for inorder traversal
-   * @param root
+   * @param node
    */
-  private void inorderRec(Node root) {
-    if (root == null)
+  private void inorderRec(Node node) {
+    if (node == null)
       return;
-    inorderRec(root.left);
-    System.out.print(root.key.toString() + " ");
-    inorderRec(root.right);
+    inorderRec(node.left);
+    System.out.print(node.key.toString() + " ");
+    inorderRec(node.right);
   }
 
   /**

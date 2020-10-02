@@ -1,0 +1,214 @@
+Stack
+-------
+Stack<Integer> s = new Stack<>();
+s.push(1); -- push
+s.pop() -- pop the element
+s.peek() - returns the top element
+s.search(el) - returns index from top else -1
+
+Queue
+----------
+Queue<Integer> queue = new LinkedList<>();
+queue.offer(i); -- push
+while (!queue.isEmpty()) {
+queue.peek();
+int cur = queue.poll(); - pop and get front;
+queue.clear();
+Iterator<String> it = queue.iterator();
+while(it.hasNext()){
+	String el = it.next();
+}
+for(String el : queue) {
+}
+
+Deque
+------
+Deque<String> deq = new ArrayDeque<>();
+deq.offer(el); - normal push
+deq.offerLast(el);
+deq.offerFirst(el); - push at front
+deq.peek(); -- just like front()
+deq.peekFirst(); -- same as above
+deq.peekLast(); - peek at back
+poll();
+pollLast();
+pollFirst();
+deq.contains() - true/false
+
+Priority Queue
+---------------
+PriorityQueue<Student> sQ = new PriorityQueue<>();
+Student is implementing Comparable Interface;
+sQ.poll() - pop the element at top. remove()
+sQ.peek()
+sQ.add();
+
+Sort Array
+----------
+int[] a = new int[n];
+Arrays.sort(a);
+Arrays.sort(a, 0, n); startIndex(0)-inclusive, end(n)-exclusive
+Arrays.sort(a, Collections.reverseOrder()); -- reverse
+Arrays.sort(arr, new SortbyRoll());
+class SortByRoll implements Comparator<Student> {
+	int compare(Student a, Student b){
+	return a.rollNo - b.rollNo;
+	}
+}
+Arrays.sort(intervals, new Comparator<int[]>() {
+            public int compare(final int[] a1, final int[] a2){
+                return a1[0] - a2[0];
+            }
+        }); // - intervals is 2D array having two col in each row.
+ArrayList<String> al = new ArrayList<String>();
+Collections.sort(al); 
+Collections.sort(al, Collections.reverseOrder());
+Collections.sort(ar, new Sortbyroll());
+//convert array to ArrayList
+String domains[] = {"Practice", "Geeks", "Code", "Quiz"}; 
+List colList = new ArrayList(Arrays.asList(domains)); 
+Collections.sort(colList); 
+
+Fill/memset- Array/ArrayList
+-----------------
+Arrays.fill(ar, 10); 
+Arrays.fill(ar, 1, 5, 10); //10 excluded
+int [][]ar = new int [3][4];  // fill 2d array
+// Fill each row with 10.  
+for (int[] row : ar) 
+Arrays.fill(row, 10); 
+List<Integer> arrList = Arrays.asList(1,2,3,4);      
+//Fill the list with 551  
+Collections.fill(arrList,551);  
+
+Reverse Array/ArrayList
+------------------------
+Collections.reverse(arrayli);//ArrayList<Integer> arrayli;
+Collections.reverse(arrayli)//ArrayList<Employee> arrayli;
+Collections.reverse(Arrays.asList(a));//a is array
+
+Swap,Copy,binarySearch
+-----
+Collections.swap(list, 3, 1);// 3 and 1 is index
+Collections.copy(list,zoo);//copying the ArrayList zoo to the list
+Collections.max(list)
+Collections.min(list)
+int pos = Collections.binarySearch(list, 1)-return index ifpresent
+pos = Collections.binarySearch(list, 5); return -(insertionIndex+1)
+int retVal = Arrays.binarySearch(arr,key);
+//Add element at 0 index
+
+ArrayList
+---------------
+namesList.add(0, "Lokesh"); - list size will increase
+namesList.set(0, "Lokesh"); - element at 0th index will be replaced.
+//create ArrayList with 10 elements 
+//initialized to value 10 using Collections.nCopies
+ ArrayList<Integer> intList = 
+                new ArrayList<Integer>(Collections.nCopies(10,10));
+ArrayList<Integer> ArrayList = new ArrayList<>(intList);
+   -- intList is an existing Collection
+String[] array = list.toArray(new String[list.size()]);
+Remove elements
+--
+ArrayList.remove(Index);
+ArrayList.remove(Element);
+ArrayList.removeIf( name -> name.equals("alex"));
+check Equal and remove
+--
+list1.equals(list2);
+listOne.retainAll(listTwo); -- give common Elements
+list1.removeAll(list2); - remove diff ele from list2
+List<Integer> listWithoutDuplicates = numbersList.stream().distinct().collect(Collectors.toList());
+  -- distinct ele
+
+Set
+--------
+1.HashSet
+  ----
+  Set<String> hashSet = new HashSet<>();
+  hashSet.add("ab");
+  boolean found = hashSet.contains("A"); 
+  boolean removed = hashSet.remove("D");
+  Iterator<String> itr = hashSet.iterator();
+  while(itr.hasNext()) 
+   {
+    String value = itr.next();
+    System.out.println("Value: " + value);
+    }
+    String[] values = new String[hashSet.size()];
+    hashSet.toArray(values); -- hashSet to Array.
+    List<String> valuesList = hashSet.stream().collect(Collectors.toList());
+2.TreeSet
+  ------
+  TreeSet(Comparator c);
+  Object first() 
+  Object last() 
+  Iterator<E> descendingIterator()
+
+Map
+--------
+1.HashMap
+  -----
+  map.remove(key);
+  Iterator<Integer> itr = map.keySet().iterator();
+   while (itr.hasNext()) 
+   {
+    Integer key = itr.next();
+    String value = map.get(key);
+   }
+
+   Iterator<Entry<Integer, String>> entryIterator = map.entrySet().iterator();
+ 
+  while (entryIterator.hasNext()) 
+  {
+    Entry<Integer, String> entry = entryIterator.next();
+    System.out.println("The key is :: " + entry.getKey() + ", and value is :: " + entry.getValue() );
+  }
+  for (Map.Entry<String,Integer> entry : testMap.entrySet()) {
+            entry.getKey();
+            entry.getValue();
+        }
+   for (String key : testMap.keySet()) {
+            testMap.get(key);
+        }
+
+Iterator
+----------
+Iterator iter=arraylist.iterator();  
+       while(iter.hasNext()){  
+            System.out.print(iter.next() + " ");  
+       }
+ListIterator<String> color_iter=colors_list.listIterator(colors_list.size());  
+      while(color_iter.hasPrevious())  
+        {  
+            String str=color_iter.previous();  
+            System.out.print(str + " ");  
+        }    
+
+Graph Representation
+---------------------
+Linked List Repre :: --
+class Edge {
+	int u,v;
+	public Edge(int u,int v){
+	this.u = u;this.v = v;
+	}
+}
+1. 
+  List<Edge> adj[] = new LinkedList[n];
+  for(int i=0;i<adj.length;i++)
+        adj[i] = new LinkedList<Integer>();
+   addEdge : -
+     adj[u].add(0,v)-- add 0 if using LinkedList
+
+2.Map Representation
+ Map<Integer,List<Edge>> adj = new HashMap<>();
+ addEdge(u,v,w) : -
+ if(!adj.containsKey(u)) {
+ adj.put(u,new LinkedList<>());
+ }
+ adj.get(u).add(new Edge(v,w));
+
+
+
