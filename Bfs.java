@@ -33,9 +33,6 @@ class Graph {
             }  
        }
       }
-}
-
-class TestClass {
     public static void main(String args[] ) throws Exception {
       Scanner sc = new Scanner(System.in);
       int N = sc.nextInt();
